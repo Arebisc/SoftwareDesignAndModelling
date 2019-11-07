@@ -7,8 +7,7 @@ namespace BankingProject.Console
 {
     public class Bank
     {
-
-        private Dictionary<string, Account> _accounts = null;
+        private IDictionary<string, Account> _accounts = null;
 
         public Bank()
         {
@@ -45,7 +44,7 @@ namespace BankingProject.Console
         /**
          * Returns an iterator for account list
          */
-        private Dictionary<string, Account>.Enumerator ListAccounts()
+        private IEnumerator<KeyValuePair<string, Account>> ListAccounts()
         {
             return _accounts.GetEnumerator();
         }
