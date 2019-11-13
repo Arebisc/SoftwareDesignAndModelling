@@ -26,7 +26,7 @@ namespace BankingProject.Console.Bank
             var Account23 = bank.Account("23");
 
             Account123.Deposit(1000);
-            Account123.Withwdraw(200);
+            Account123.Withdraw(200);
             Account123.TransferTo(Account23, 100);
         }
 

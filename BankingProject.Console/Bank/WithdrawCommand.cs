@@ -5,12 +5,12 @@ using System.Text;
 
 namespace BankingProject.Console.Bank
 {
-    public class DepositCommand: IBankingOperation
+    public class WithdrawCommand : IBankingOperation
     {
-        private readonly Account _account;
+        private readonly IAccount _account;
         private readonly double _amount;
 
-        public DepositCommand(Account account, double amount)
+        public WithdrawCommand(IAccount account, double amount)
         {
             _account = account;
             _amount = amount;
@@ -18,7 +18,7 @@ namespace BankingProject.Console.Bank
 
         public void Execute()
         {
-            _account.Deposit(_amount);
+            _account.Withdraw(_amount);            
         }
     }
 }

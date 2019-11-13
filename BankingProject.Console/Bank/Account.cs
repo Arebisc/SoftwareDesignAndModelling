@@ -39,7 +39,7 @@ namespace BankingProject.Console.Bank
          * @param amount
          * @throws BankingException
          */
-        public void Withwdraw(double amount)
+        public void Withdraw(double amount)
         {
             if (_balance < amount)
             {
