@@ -16,7 +16,7 @@ namespace BankingProject.Console.Bank
         }
 
 
-        public static void Start()
+        public void Start()
         {
             var bank = new Bank();
             bank.CreateAccount("123", "Jan", "Kowalski");

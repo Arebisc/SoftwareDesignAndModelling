@@ -3,6 +3,10 @@
     // TODO Command and Observer pattern
     class Program
     {
-        static void Main(string[] args) => Bank.Bank.Start();
+        static void Main(string[] args) 
+        {
+            var bank = new Bank.Bank();
+            bank.Start();
+        }
     }
 }
