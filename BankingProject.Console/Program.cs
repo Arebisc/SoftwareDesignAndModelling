@@ -1,11 +1,8 @@
 ﻿namespace BankingProject.Console
 {
+    // TODO Command and Observer pattern
     class Program
     {
-        static void Main(string[] args)
-        {
-            System.Console.WriteLine("Hello World!");
-            Bank.Start(args);
-        }
+        static void Main(string[] args) => Bank.Bank.Start();
     }
 }

@@ -1,13 +1,13 @@
 ﻿using BankingProject.Console.Exceptions;
+using BankingProject.Console.Interfaces.Bank;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BankingProject.Console
+namespace BankingProject.Console.Bank
 {
-    public class Account
+    public class Account: IAccount
     {
-
         private string _id = null;
         private string _name = null;
         private string _surname = null;
@@ -15,9 +15,9 @@ namespace BankingProject.Console
 
         public Account(string id, string name, string surname)
         {
-            this._id = id;
-            this._name = name;
-            this._surname = surname;
+            _id = id;
+            _name = name;
+            _surname = surname;
         }
 
         /**
@@ -28,7 +28,7 @@ namespace BankingProject.Console
         {
             if (ammount< 0)
             {
-                throw new BankingException("ammount wp�aty musi by� nieujemna");
+                throw new BankingException("ammount wpłaty musi być nieujemna");
             }
 
             _balance += ammount;
@@ -43,11 +43,11 @@ namespace BankingProject.Console
         {
             if (_balance < amount)
             {
-                throw new BankingException("Pr�ba wyp�aty ponad balance na rachunku");
+                throw new BankingException("Próba wypłaty ponad balance na rachunku");
             }
             if (amount < 0)
             {
-                throw new BankingException("ammount wyp�aty musi by� nieujemna");
+                throw new BankingException("ammount wypłaty musi być nieujemna");
             }
 
             _balance -= amount;
@@ -78,7 +78,7 @@ namespace BankingProject.Console
          * @param Account
          * @param ammount
          */
-        public void TransferTo(Account Account, double ammount)
+        public void TransferTo(IAccount account, double ammount)
         {
             if (ammount > _balance)
             {
@@ -86,7 +86,7 @@ namespace BankingProject.Console
             }
 
             _balance -= ammount;
-            Account.TransferFrom(this, ammount);
+            account.TransferFrom(this, ammount);
         }
 
         /**
@@ -94,7 +94,7 @@ namespace BankingProject.Console
          * @param account
          * @param ammount
          */
-        private void TransferFrom(Account account, double ammount)
+        public void TransferFrom(IAccount account, double ammount)
         {
             _balance += ammount;
         }
