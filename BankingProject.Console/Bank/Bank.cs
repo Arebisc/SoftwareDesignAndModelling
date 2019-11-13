@@ -2,17 +2,20 @@
 using BankingProject.Console.Interfaces.Bank;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace BankingProject.Console.Bank
 {
-    public class Bank: IBank
+    public class Bank: IBank, IObservable
     {
         private IDictionary<string, Account> _accounts = null;
+        private readonly IList<IBankingOperationObserver> _bankingOperationObservers;
 
         public Bank()
         {
             _accounts = new Dictionary<string, Account>();
+            _bankingOperationObservers = new List<IBankingOperationObserver>();
         }
 
 
@@ -38,6 +41,7 @@ namespace BankingProject.Console.Bank
          */
         public void Transfer(IAccount accountFrom, IAccount accountTo, double ammount)
         {
+            Notify();
             accountFrom.TransferTo(accountTo, ammount);
         }
 
@@ -49,6 +53,7 @@ namespace BankingProject.Console.Bank
          */
         public void Transfer(string idFrom, string idTo, double ammount)
         {
+            Notify();
             var accountFrom = Account(idFrom);
             var accountTo = Account(idTo);
 
@@ -63,6 +68,7 @@ namespace BankingProject.Console.Bank
          */
         public void CreateAccount(string id, string name, string surname)
         {
+            Notify();
             if (Account(id) != null)
             {
                 throw new BankingException("This Account ID already exists!");
@@ -88,6 +94,28 @@ namespace BankingProject.Console.Bank
         private IEnumerator<KeyValuePair<string, Account>> ListAccounts()
         {
             return _accounts.GetEnumerator();
+        }
+
+        public void Attach(IBankingOperationObserver bankingOperationObserver)
+        {
+            Debug.WriteLine("Attaching observer to Bank");
+            _bankingOperationObservers.Add(bankingOperationObserver);
+        }
+
+        public void Detach(IBankingOperationObserver bankingOperationObserver)
+        {
+            Debug.WriteLine("Detaching observer from Bank");
+            _bankingOperationObservers.Remove(bankingOperationObserver);
+        }
+
+        public void Notify()
+        {
+            Debug.WriteLine("Notifying observers...");
+
+            foreach (var observer in _bankingOperationObservers)
+            {
+                observer.Update(this);
+            }
         }
     }
 }
