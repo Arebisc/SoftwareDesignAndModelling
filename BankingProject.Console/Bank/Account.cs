@@ -47,10 +47,22 @@ namespace BankingProject.Console.Bank
             }
             if (amount < 0)
             {
-                throw new BankingException("ammount wypłaty musi być nieujemna");
+                throw new BankingException("amount wypłaty musi być nieujemna");
             }
 
             _balance -= amount;
+        }
+
+        /*
+        * @param amount
+        * @throws BankingException
+         */
+        public void AddInterest(double amount){
+            if (amount< 0)
+            {
+                throw new BankingException("amount odsetek musi być nieujemna");
+            }
+            _balance += amount;
         }
 
         /**

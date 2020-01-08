@@ -1,5 +1,6 @@
 ﻿using BankingProject.Console.Exceptions;
 using BankingProject.Console.Interfaces.Bank;
+using BankingProject.Console.Context;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,10 +13,13 @@ namespace BankingProject.Console.Bank
         private IDictionary<string, Account> _accounts = null;
         private readonly IList<IBankingOperationObserver> _bankingOperationObservers;
 
+        private readonly BankContext _bankContext;
+
         public Bank()
         {
             _accounts = new Dictionary<string, Account>();
             _bankingOperationObservers = new List<IBankingOperationObserver>();
+            _bankContext = new BankContext();
         }
 
 
